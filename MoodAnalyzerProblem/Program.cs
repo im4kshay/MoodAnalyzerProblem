@@ -12,6 +12,8 @@ namespace MoodAnalyzerProblem
         {
             //Welcome Message
             Console.WriteLine("=-=-=-=-=-=-=-=Welcome To The Mood Analyzer Problem=-=-=-=-=-=-=-=");
+
+            Console.ReadLine();
         }
     }
 }
