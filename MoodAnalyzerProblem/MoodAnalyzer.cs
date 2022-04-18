@@ -26,20 +26,30 @@ namespace MoodAnalyzerProblem
 
         public string AnalyzeMood()
         {
-            try // Block of Code to be tested for error while it is being executed
+            try // Block of Code to be tested ,for error while it is being executed
             {
-                if (this.message.Contains("sad"))//Contains():- This method is used to check whether the substring occurs within a given string or not.
+                if (this.message.Equals(string.Empty))
+                {
+                    throw new MoodAnalyzerCustomException(MoodAnalyzerCustomException.ExceptionType.EMPTY_MESSAGE, "Mood should not be Empty");
+                }
+                else if (this.message.Contains("sad")) //Contains():- This method is used to check whether the substring occurs within a given string or not.
+                {
                     return "sad";
-                else if (this.message.Contains("happy"))
+                }
+                else
+                {
                     return "happy";
-                else if (this.message.Contains(null))
-                    return "happy";
+                }
             }
-            catch // Block of code to be Executed if an error in the block
+            catch (NullReferenceException)// Block of code to be Executed if an error in the block
             {
-                return "happy";
+                throw new MoodAnalyzerCustomException(MoodAnalyzerCustomException.ExceptionType.NULL_MESSAGE, "Mood should not be null");
             }
-            return null; // Value Return for all code path (AnalyzeMood)
+            catch (MoodAnalyzerCustomException exception)
+            {
+                return exception.Message;
+            }
+
         }
 
     }

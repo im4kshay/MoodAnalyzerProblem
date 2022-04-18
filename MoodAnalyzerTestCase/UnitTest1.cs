@@ -58,11 +58,39 @@ namespace MoodAnalyzerTestCase
         public void NullMood_Return_Happy()
         {
             //Arrange
-            string expected = "happy";
+            string expected = "Mood should not be Empty";
             //Act
-            MoodAnalyzer moodAnalyser = new MoodAnalyzer(null);
+            MoodAnalyzer moodAnalyser = new MoodAnalyzer("");
+            string actual = moodAnalyser.AnalyzeMood();
             //Assert
-            Assert.AreEqual(expected, moodAnalyser.AnalyzeMood());
+            Assert.AreEqual(expected, actual);
+        }
+        //TC3.1:-Given empty mood should Thow Mood AnalysisException Indicating Empty mood
+        [TestMethod]
+        public void Given_Empty_Mood_Should_Thow_Mood_AnalysisException_Indicating_Empty_Mood()
+        {
+            try
+            {
+                string message = "";
+                MoodAnalyzer moodAnalyser = new MoodAnalyzer(message);
+                string mood = moodAnalyser.AnalyzeMood();
+            }
+            catch (MoodAnalyzerCustomException e)
+            {
+                Assert.AreEqual("Mood Should not be Empty", e.Message);
+            }
+        }
+        [TestMethod]
+        //TC3.2:-Empty mood Should throw Empty Mood
+        public void GivenEmptyUsingCustomException()
+        {
+            //Arrange
+            string expected = "Mood should not be Empty";
+            //Act
+            MoodAnalyzer moodAnalyser = new MoodAnalyzer("");
+            string actual = moodAnalyser.AnalyzeMood();
+            //Assert
+            Assert.AreEqual(expected, actual);
         }
     }
 }
