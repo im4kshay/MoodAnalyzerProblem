@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="MoodAnalyzer.cs" />
     <Compile Include="MoodAnalyzerCustomException.cs" />
+    <Compile Include="MoodAnalyzerFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
