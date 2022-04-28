@@ -34,7 +34,7 @@ namespace MoodAnalyzerProblem
             }
         }
         // UC5:-For Parameterise constructor by Passing message parameterto the class Method.
-        public static object CreateMoodAnalyzerObjectUsingParametzisedConstructor(string className, string constructorName)
+        public static object CreateMoodAnalyzerObjectUsingParametzisedConstructor(string className, string constructorName, string message)
         {
             Type type = typeof(MoodAnalyzer);
             if (type.Name.Equals(className) || type.FullName.Equals(className))
@@ -42,7 +42,7 @@ namespace MoodAnalyzerProblem
                 if (type.Name.Equals(constructorName))
                 {
                     ConstructorInfo constructor = type.GetConstructor(new[] { typeof(string) });
-                    object instance = constructor.Invoke(new object[] { "HAPPY" });
+                    object instance = constructor.Invoke(new object[] { message });
                     return instance;
                 }
                 else
@@ -53,6 +53,24 @@ namespace MoodAnalyzerProblem
             else
             {
                 throw new MoodAnalyzerCustomException(MoodAnalyzerCustomException.ExceptionType.NO_SUCH_CLASS, "Class Not Found");
+            }
+        }
+        // Use Reflection to invoke Method - AnalyseMood
+        public static string InvokeAnalyzeMood(string message, string methodName)
+        {
+            try
+            {
+                //Type type = typeof(MoodAnalyzer);
+                //MethodInfo methodInfo = type.GetMethod(methodName);
+                Type type = Type.GetType("MoodAnalyzerProblem.MoodAnalyzer");
+                object moodAnalyserObj = MoodAnalyzerFactory.CreateMoodAnalyzerObjectUsingParametzisedConstructor("MoodAnalyzerProblem.MoodAnalyzer", "MoodAnalyzer", message);
+                MethodInfo methodInfo = type.GetMethod(methodName);
+                object mood = methodInfo.Invoke(moodAnalyserObj, null);
+                return mood.ToString();
+            }
+            catch (NullReferenceException)
+            {
+                throw new MoodAnalyzerCustomException(MoodAnalyzerCustomException.ExceptionType.NO_SUCH_METHOD, "No Such Method");
             }
         }
     }

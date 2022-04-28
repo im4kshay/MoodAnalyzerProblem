@@ -14,10 +14,10 @@ namespace MoodAnalyzerProblem
             Console.WriteLine("=-=-=-=-=-=-=-=Welcome To The Mood Analyzer Problem=-=-=-=-=-=-=-=");
 
             //UC1:-Respond Happy and Sad Mood
-            MoodAnalyzer analyser = new MoodAnalyzer("I am in Sad Mood");
-            Console.WriteLine("I am in Sad Mood:- " + analyser.AnalyzeMood());
-            MoodAnalyzer analysermood = new MoodAnalyzer("I am in Happy Mood");
-            Console.WriteLine("I am in Happy Mood:- " + analysermood.AnalyzeMood());
+            MoodAnalyzer analyser = new MoodAnalyzer("I am in sad Mood");
+            Console.WriteLine("I am in sad Mood:- " + analyser.AnalyzeMood());
+            MoodAnalyzer analysermood = new MoodAnalyzer("I am in happy Mood");
+            Console.WriteLine("I am in happy Mood:- " + analysermood.AnalyzeMood());
             //UC2,3:-
             MoodAnalyzer moodAnalyser = new MoodAnalyzer("");
             Console.WriteLine("Given Null Message:- " + moodAnalyser.AnalyzeMood());

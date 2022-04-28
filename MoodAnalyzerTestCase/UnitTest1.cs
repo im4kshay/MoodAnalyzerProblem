@@ -148,9 +148,10 @@ namespace MoodAnalyzerTestCase
             //Arrange
             string className = "MoodAnalyzerProblem.MoodAnalyzer";
             string constructorName = "MoodAnalyzer";
+            string message = "Happy";
             MoodAnalyzer expectedObj = new MoodAnalyzer("HAPPY");
             //Act
-            object resultObj = MoodAnalyzerFactory.CreateMoodAnalyzerObjectUsingParametzisedConstructor(className, constructorName);
+            object resultObj = MoodAnalyzerFactory.CreateMoodAnalyzerObjectUsingParametzisedConstructor(className, constructorName, message);
             //Assert
             expectedObj.Equals(resultObj);
         }
@@ -163,9 +164,10 @@ namespace MoodAnalyzerTestCase
                 //Arrange
                 string className = "WrongNameSpace.MoodAnalyzer";
                 string constructorName = "MoodAnalyser";
+                string message = "Happy";
                 MoodAnalyzer expectedObj = new MoodAnalyzer("HAPPY");
                 //Act
-                object resultObj = MoodAnalyzerFactory.CreateMoodAnalyzerObjectUsingParametzisedConstructor(className, constructorName);
+                object resultObj = MoodAnalyzerFactory.CreateMoodAnalyzerObjectUsingParametzisedConstructor(className, constructorName, message);
             }
             catch (MoodAnalyzerCustomException e)
             {
@@ -182,9 +184,10 @@ namespace MoodAnalyzerTestCase
                 //Arrange
                 string className = "MoodAnalyzerProblem.MoodAnalyzer";
                 string constructorName = "WrongConstructorName";
+                string message = "Happy";
                 MoodAnalyzer expectedObj = new MoodAnalyzer("HAPPY");
                 //Act
-                object resultObj = MoodAnalyzerFactory.CreateMoodAnalyzerObjectUsingParametzisedConstructor(className, constructorName);
+                object resultObj = MoodAnalyzerFactory.CreateMoodAnalyzerObjectUsingParametzisedConstructor(className, constructorName, message);
             }
             catch (MoodAnalyzerCustomException e)
             {
@@ -192,5 +195,36 @@ namespace MoodAnalyzerTestCase
                 Assert.AreEqual("Constructor is not Found", e.Message);
             }
         }
+        //TC6.1:-Invoke Analyse Method and Show Happy Mood
+        [TestMethod]
+        public void Given_Happy_Message_Using_Reflection_When_Proper_Should_Return_Happy()
+        {
+            //Arrange
+            string message = "Happy";
+            string methodName = "AnalyzeMood";
+            //Act
+            string actual = MoodAnalyzerFactory.InvokeAnalyzeMood(message, methodName);
+            //Assert
+            Assert.AreEqual("happy", actual);
+        }
+        //TC6.2:-Pass Wrong Method Should Throw MoodAnalyserCustomException
+        [TestMethod]
+        public void Given_Improper_Method_Name_Throw_MoodAnalyserCustomException_Indicating_No_Such_Method()
+        {
+            try
+            {
+                //Arrange
+                string message = "Happy";
+                string methodName = "WrongMethodName";
+                //Act
+                string actual = MoodAnalyzerFactory.InvokeAnalyzeMood(message, methodName);
+            }
+            catch (MoodAnalyzerCustomException e)
+            {
+                //Assert
+                Assert.AreEqual("No Such Method", e.Message);
+            }
+        }
+
     }
 }
