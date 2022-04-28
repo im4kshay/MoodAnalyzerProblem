@@ -73,5 +73,25 @@ namespace MoodAnalyzerProblem
                 throw new MoodAnalyzerCustomException(MoodAnalyzerCustomException.ExceptionType.NO_SUCH_METHOD, "No Such Method");
             }
         }
+        // UC7:-User Reflector to modify mood dynamically
+        public static string SetField(string message, string fieldName)
+        {
+            try
+            {
+                MoodAnalyzer moodAnalyser = new MoodAnalyzer();
+                Type type = typeof(MoodAnalyzer);
+                FieldInfo field = type.GetField(fieldName, BindingFlags.Public | BindingFlags.Instance);
+                if (message == null)
+                {
+                    throw new MoodAnalyzerCustomException(MoodAnalyzerCustomException.ExceptionType.EMPTY_MESSAGE, "Message should not be null.");
+                }
+                field.SetValue(moodAnalyser, message);
+                return moodAnalyser.message;
+            }
+            catch (NullReferenceException)
+            {
+                throw new MoodAnalyzerCustomException(MoodAnalyzerCustomException.ExceptionType.NO_SUCH_FIELD, "No such field found.");
+            }
+        }
     }
 }
